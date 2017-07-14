@@ -1,0 +1,30 @@
+import json
+ 
+# строка которую будем парсить
+json_string = """
+[
+{
+        "h3": "Title #1",
+        "div": "Hello, World 1!"
+},
+{
+        "h3": "Title #2",
+        "div": "Hello, World 2!"
+}
+]
+"""
+# распарсенная строка
+parsed_string = json.loads(json_string)
+str = "<ul>"
+for num in parsed_string:
+    str += "<li>"
+    for key in num:
+        str += "<{0}>{1}</{0}>".format(key, num[key])
+    str += "</li>"
+str += "</ul>"
+
+print(str)
+f = open('text.html', 'w')
+f.write(str)
+f.close()
+
