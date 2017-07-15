@@ -1,30 +1,45 @@
 import json
+
+def htmlreturn(datastr):        #формирует html
+    dastr = ""
+    for key in datastr:
+        dastr += "<{0}>{1}</{0}>".format(key, datastr[key])
+    return dastr
+
+def get_key(d, value):          #d-словарь, value-значение, Поисковик
+    for k, v in d.items():
+        if v == value:
+            return k
  
 # строка которую будем парсить
-json_string = """
-[
+json_string = """[
 {
-        "h3": "Title #1",
-        "div": "Hello, World 1!"
-},
-{
-        "h3": "Title #2",
-        "div": "Hello, World 2!"
-}
-]
-"""
+  "span": "Title #1",
+  "content": [
+   {
+    "p": "Example 1",
+    "header": "header 1"
+   }
+  ]
+ },
+ {
+  "div": "div 1"
+ }
+]"""
 # распарсенная строка
 parsed_string = json.loads(json_string)
-str = "<ul>"
-for num in parsed_string:
-    str += "<li>"
-    for key in num:
-        str += "<{0}>{1}</{0}>".format(key, num[key])
-    str += "</li>"
-str += "</ul>"
+
+str = ""
+mas = ('ul','li',)
+for fifor in parsed_string:
+    for sefor in fifor.values():        
+        try:            
+            for thfor in sefor:                
+                str += "<{0}><{1}><{2}>{3}</{2}></{1}></{0}>".format(get_key(fifor,sefor),mas[0], mas[1], htmlreturn(thfor))                    
+        except Exception:            
+            str += "<{0}>{1}</{0}>".format(get_key(fifor,sefor), sefor) 
+            
+
 
 print(str)
-f = open('text.html', 'w')
-f.write(str)
-f.close()
 
