@@ -37,9 +37,12 @@ for fifor in parsed_string:
             for thfor in sefor:                
                 str += "<{0}><{1}><{2}>{3}</{2}></{1}></{0}>".format(get_key(fifor,sefor),mas[0], mas[1], htmlreturn(thfor))                    
         except Exception:            
-            str += "<{0}>{1}</{0}>".format(get_key(fifor,sefor), sefor) 
-            
+            str += "<{0}><{1}>{2}</{1}>".format(mas[1],get_key(fifor,sefor), sefor)
+    str = "{1}</{0}>".format(mas[1], str)            
 
-
+str = "<{0}>{1}</{0}>".format(mas[0], str) 
 print(str)
 
+f = open('text.html', 'w')
+f.write(str)
+f.close()
